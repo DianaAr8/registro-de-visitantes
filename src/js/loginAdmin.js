@@ -16,12 +16,18 @@ window.visitorRegistration = {
     // Función de firebase para crer usuario tomando como parametros email y contraseña
     firebase.auth().createUserWithEmailAndPassword(emailAdmin, passwordAdmin)
       .then(result => {
+        // Se utiliza para obtener el usuario que accedio
+        let user = firebase.auth().currentUser;
+        // Se le manda un correo de verificación al usuario 
+        user.sendEmailVerification();
+      })
+      .then(result => {
         // Se muestra una alerta exitosa
         swal({
           confirmButtonText: 'Aceptar',
           type: 'success',
           title: 'Su registro fue exitoso',
-          text: 'Ya tiene un nuevo usuario'
+          text: 'Se ha enviado un correo de verificación a su cuenta'
         });
       })
       .catch(error => {
@@ -51,14 +57,14 @@ window.visitorRegistration = {
             type: 'error',
             title: 'Usuario ya registrado',
             text: 'Verifica tus datos'
-          }); 
+          });
         }
       });
   },
 
   // Se crea acceso para administrador
   loginAdmin: (emailAdmin, passwordAdmin) => {
-    // Función de firebase para comprobar usuario logeado 
+    // Función de firebase para comprobar usuario logeado
     firebase.auth().signInWithEmailAndPassword(emailAdmin, passwordAdmin)
       .then((result) => {
         // Si los datos son correctos se le enviara a rata página
@@ -86,10 +92,10 @@ window.visitorRegistration = {
         }
       });
   },
-  
   // Cerrar sesión
   signOut: () => {
     // Función de firebase para cerrar sesión
+<<<<<<< HEAD
     firebase.auth().signOut()
       .then(result =>{
         // Enviara al usuario a la página principal (login 'index.html')
@@ -100,3 +106,9 @@ window.visitorRegistration = {
   } 
   
 };
+=======
+    // firebase.auth().signOut()
+    location.href = '../index.html';
+  }
+};
+>>>>>>> upstream/master
